@@ -1,6 +1,8 @@
 name: deploy fom frontdoor to lambda
 on:
   push:
+    paths:
+      - 'lambdas/fom-frontdoor/**'
     branches: [ master ]
 jobs:
   deploy_source:
