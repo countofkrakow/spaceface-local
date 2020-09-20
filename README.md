@@ -20,3 +20,4 @@ For more information, the notebooks contain the basic idea of this project.
 Models used:
 * InterFaceGan - for face manipulation
 * StyleGan2 - for encoding latent vectors
+
