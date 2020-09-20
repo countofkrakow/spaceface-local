@@ -4,7 +4,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -qq update \
   && DEBIAN_FRONTEND=noninteractive apt-get -qqy install python3-pip ffmpeg git less nano libsm6 libxext6 libxrender-dev \
   && rm -rf /var/lib/apt/lists/*
 
-COPY ../first-order-model/requirements.txt .
+COPY requirements.txt .
 
 RUN pip3 install \
   --upgrade setuptools \
