@@ -10,3 +10,5 @@ COPY . /app
 WORKDIR /app
 
 CMD ["python3", "processor.py"]
+
+# test

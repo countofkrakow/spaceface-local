@@ -13,3 +13,5 @@ RUN pip3 install \
 
 RUN mkdir /app
 RUN curl -o /app/vox-adv-cpk.pth.tar https://spaceface-build-inputs.s3-us-west-2.amazonaws.com/first_order_model/vox-adv-cpk.pth.tar
+
+# test
