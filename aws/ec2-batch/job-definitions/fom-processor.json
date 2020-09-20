@@ -1,0 +1,53 @@
+{
+  "jobDefinitionName": "fom-processor",
+  "type": "container",
+  "parameters": {},
+  "containerProperties": {
+      "image": "454494063118.dkr.ecr.us-west-2.amazonaws.com/first_order_model",
+      "vcpus": 4,
+      "memory": 5000,
+      "command": [
+          "python3",
+          "processor.py"
+      ],
+      "volumes": [],
+      "environment": [
+          {
+              "name": "RESULT_FILE"
+          },
+          {
+              "name": "IMAGE_FILE"
+          },
+          {
+              "name": "VIDEO_FILE"
+          },
+          {
+              "name": "AWS_DEFAULT_REGION",
+              "value": "us-west-2"
+          },
+          {
+              "name": "OUTPUT_BUCKET",
+              "value": "spaceface-fom-output"
+          },
+          {
+              "name": "INPUT_BUCKET",
+              "value": "spaceface-fom-input"
+          },
+          {
+              "name": "FRAME_BATCH_SIZE",
+              "value": "200"
+          }
+      ],
+      "mountPoints": [],
+      "ulimits": [],
+      "resourceRequirements": [
+          {
+              "value": "1",
+              "type": "GPU"
+          }
+      ]
+  },
+  "timeout": {
+      "attemptDurationSeconds": 1800
+  }
+}

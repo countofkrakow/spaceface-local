@@ -1,0 +1,28 @@
+{
+  "computeEnvironmentName": "spaceface-environment",
+  "type": "MANAGED",
+  "state": "ENABLED",
+  "computeResources": {
+      "type": "EC2",
+      "minvCpus": 0,
+      "maxvCpus": 8,
+      "desiredvCpus": 8,
+      "instanceTypes": [
+          "p2.xlarge"
+      ],
+      "subnets": [
+          "subnet-5ef70b14",
+          "subnet-7052775b",
+          "subnet-991ac9e1",
+          "subnet-9bf75ac6"
+      ],
+      "securityGroupIds": [
+          "sg-d70bd3fd"
+      ],
+      "instanceRole": "arn:aws:iam::694126695710:instance-profile/fom-instance-role",
+      "tags": {
+          "Name": "spaceface-environment"
+      }
+  },
+  "serviceRole": "arn:aws:iam::694126695710:role/fom-aws-batch-service-role"
+}
