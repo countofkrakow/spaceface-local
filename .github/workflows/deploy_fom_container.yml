@@ -2,7 +2,7 @@ name: deploy fom container
 
 on:
   push:
-    paths: 'first-order-model/**'
+    paths: 'first_order_model/**'
     branches: [ master ]
 
 jobs:
@@ -25,5 +25,5 @@ jobs:
           ECR_REPOSITORY: first_order_model
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest first-order-model/.
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest first_order_model/.
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
