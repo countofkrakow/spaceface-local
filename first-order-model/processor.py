@@ -63,7 +63,7 @@ def clip(x, minX, maxX):
 
 def constrain_new_crop(prev_crop, new_crop, unit):
   # Makes sure the new crop does is not too far from the old one.
-  return [int(clip(prev_crop[i] * 0.95 + new_crop[i] * 0.05, prev_crop[i] - unit, prev_crop[i] + unit)) for i in range(4)]
+  return [int(clip(prev_crop[i] * 0.99 + new_crop[i] * 0.01, prev_crop[i] - unit, prev_crop[i] + unit)) for i in range(4)]
 
 
 def prepare_frame(frame, face_detector, previous_crop, desired_aspect, crop_scale=1.5):
@@ -122,11 +122,10 @@ if __name__ == '__main__':
   RESULT_VIDEO = 'temp_output.mp4'
 
   # Crop from original image. x,y,w,h
-  TRUMP_IMAGE_CROP = (163, 34, 217, 264)
+  TRUMP_IMAGE_CROP = (121, 0, 791, 791)
 
   if not LOCAL_RUN:
     s3 = boto3.client('s3')
-    # s3.download_file(SRC_BUCKET, SRC_IMG, SRC_IMG)
     s3.download_file(SRC_BUCKET, SRC_VIDEO, SRC_VIDEO)
 
   face_detector = FaceDetector()
@@ -145,8 +144,9 @@ if __name__ == '__main__':
   temp_video_file = "no_sound_" + RESULT_VIDEO
   video_writer = imageio.get_writer(temp_video_file, fps=fps)
 
-  # Debug only:
-  # cropped_input_writer = imageio.get_writer('cropped_' + RESULT_VIDEO, fps=fps)
+  if LOCAL_RUN:
+    # Debug only:
+    cropped_input_writer = imageio.get_writer('cropped_' + RESULT_VIDEO, fps=fps)
 
   frames_left = len(video_reader) - 5 # - 5 is a hack - sometimes ffmpeg can't read the last frames for some reason.
   print("Num frames: " + str(frames_left))
@@ -156,14 +156,16 @@ if __name__ == '__main__':
   while frames_left > 0:
     frames = []
     for _ in range(min(FRAME_BATCH_SIZE, frames_left)):
-      frame, previous_crop = prepare_frame(video_reader.get_next_data(), face_detector, previous_crop, source_width / source_height)
+      frame = video_reader.get_next_data()
+      frame, previous_crop = prepare_frame(frame, face_detector, previous_crop, source_width / source_height)
       frames_left -= 1
       if frame is None:
         # This is the case where we don't see a face at the start of the video. We just skip those frames.
         frames_skipped += 1
         continue
-      # Debug only:
-      # cropped_input_writer.append_data(frame)
+      if LOCAL_RUN:
+        # Debug only:
+        cropped_input_writer.append_data(frame)
       frames.append(frame)
 
     if len(frames) > 0:
@@ -171,17 +173,15 @@ if __name__ == '__main__':
       animated_image = make_animation(source_image, frames, generator, kp_detector, relative=True)
       for animated_frame in animated_image:
         resized_frame = img_as_ubyte(resize(animated_frame, (source_height, source_width))[..., :3])
-        original_image = np.copy(uncropped_image)
-        original_image[TRUMP_IMAGE_CROP[1]:TRUMP_IMAGE_CROP[1] + TRUMP_IMAGE_CROP[3],
-            TRUMP_IMAGE_CROP[0]:TRUMP_IMAGE_CROP[0] + TRUMP_IMAGE_CROP[2],:] = resized_frame
-        video_writer.append_data(original_image)
+        video_writer.append_data(resized_frame)
 
   print(f"Num frames skipped: {frames_skipped}")
 
   video_reader.close()
   video_writer.close()
-  # Debug only:
-  # cropped_input_writer.close()
+  if LOCAL_RUN:
+    # Debug only:
+    cropped_input_writer.close()
 
   if video_empty:
     status = 'failure no face detected in the video'
