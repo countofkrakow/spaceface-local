@@ -159,7 +159,7 @@ if __name__ == '__main__':
       frame, previous_crop = prepare_frame(video_reader.get_next_data(), face_detector, previous_crop, source_width / source_height)
       frames_left -= 1
       if frame is None:
-        # This is the case where we don't see a face at the start of a video. We just skip those frames.
+        # This is the case where we don't see a face at the start of the video. We just skip those frames.
         frames_skipped += 1
         continue
       # Debug only:
