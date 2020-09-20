@@ -1,0 +1,143 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "2020-08-08T08:15:42Z",
+    "title" : "spaceface"
+  },
+  "host" : "c6vrdtg6uc.execute-api.us-west-2.amazonaws.com",
+  "basePath" : "/spaceface",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/edit" : {
+      "get" : {
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/Empty"
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "uri" : "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:454494063118:function:spaceface-manipulator/invocations",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "httpMethod" : "POST",
+          "contentHandling" : "CONVERT_TO_TEXT",
+          "type" : "aws_proxy"
+        }
+      }
+    },
+    "/edit/result" : {
+      "get" : {
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/Empty"
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "uri" : "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:454494063118:function:get-manipulator-result/invocations",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "httpMethod" : "POST",
+          "contentHandling" : "CONVERT_TO_TEXT",
+          "type" : "aws_proxy"
+        }
+      }
+    },
+    "/encode" : {
+      "get" : {
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/Empty"
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "uri" : "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:454494063118:function:spaceface-frontdoor/invocations",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "httpMethod" : "POST",
+          "contentHandling" : "CONVERT_TO_TEXT",
+          "type" : "aws"
+        }
+      }
+    },
+    "/encode/result" : {
+      "get" : {
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/Empty"
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "uri" : "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:454494063118:function:get-encoder-result/invocations",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "httpMethod" : "POST",
+          "contentHandling" : "CONVERT_TO_TEXT",
+          "type" : "aws_proxy"
+        }
+      }
+    },
+    "/fom-frontdoor" : {
+      "get" : {
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/Empty"
+            }
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "uri" : "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:454494063118:function:fom-frontdoor/invocations",
+          "responses" : {
+            "default" : {
+              "statusCode" : "200"
+            }
+          },
+          "passthroughBehavior" : "when_no_match",
+          "httpMethod" : "POST",
+          "contentHandling" : "CONVERT_TO_TEXT",
+          "type" : "aws_proxy"
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Empty" : {
+      "type" : "object",
+      "title" : "Empty Schema"
+    }
+  }
+}

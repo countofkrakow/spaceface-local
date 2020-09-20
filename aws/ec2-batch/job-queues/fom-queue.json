@@ -1,0 +1,11 @@
+{
+  "jobQueueName": "fom-queue",
+  "state": "ENABLED",
+  "priority": 0,
+  "computeEnvironmentOrder": [
+      {
+          "order": 0,
+          "computeEnvironment": "arn:aws:batch:us-west-2:694126695710:compute-environment/spaceface-environment"
+      }
+  ]
+}
