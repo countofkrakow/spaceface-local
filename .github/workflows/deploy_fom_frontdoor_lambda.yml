@@ -11,7 +11,7 @@ jobs:
       - name: zip
         uses: montudor/action-zip@v0.1.0
         with:
-          args: zip -qq ./fom-frontdoor.zip ./lambdas/fom-frontdoor.py
+          args: zip -qq ./fom-frontdoor.zip ./lambdas/fom-frontdoor/lambda_function.py
       - name: deploy fom lambda
         uses: appleboy/lambda-action@master
         with:
