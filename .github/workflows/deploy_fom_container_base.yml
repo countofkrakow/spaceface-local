@@ -25,5 +25,5 @@ jobs:
           ECR_REPOSITORY: first_order_model_base
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG first_order_model_base/.
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest first_order_model_base/.
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
